@@ -3,14 +3,14 @@ version: '3'
 services:
     nginx:
         build:
-            context: ./config/nginx
+            context: ./docker/nginx
             dockerfile: Dockerfile
         container_name: nginx
         ports:
           - "8000:80"
         volumes:
           - .:/symfony
-          - ./config/nginx:/etc/nginx/conf.d
+          - ./docker/nginx:/etc/nginx/conf.d
           - ./var/logs:/var/log/nginx/
         depends_on:
           - php
@@ -19,12 +19,12 @@ services:
             - "host.docker.internal:host-gateway"
     php:
         build: 
-            context: ./config/php
+            context: ./docker/php
             dockerfile: Dockerfile
         container_name: php
         volumes: 
             - .:/symfony
-            - ./config/php/php.ini:/usr/local/etc/php/php.ini
+            - ./docker/php/php.ini:/usr/local/etc/php/php.ini
         ports: 
             - "9000:9000"
         environment:
